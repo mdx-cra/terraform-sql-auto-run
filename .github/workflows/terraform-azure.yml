@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write  # ✅ Required for OIDC authentication
+  contents: read   # ✅ Required for repository access
+
 jobs:
   terraform:
     name: Deploy Terraform on Azure
