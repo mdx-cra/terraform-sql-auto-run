@@ -50,10 +50,20 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan (Debug Mode)
+        env:
+          TF_VAR_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          TF_VAR_client_id: ${{ secrets.AZURE_CLIENT_ID }}
+          TF_VAR_client_secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          TF_VAR_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
         run: terraform plan -out=tfplan -input=false -no-color -parallelism=5
         timeout-minutes: 10  # ✅ Fail fast if Terraform hangs
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          TF_VAR_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          TF_VAR_client_id: ${{ secrets.AZURE_CLIENT_ID }}
+          TF_VAR_client_secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          TF_VAR_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
         run: terraform apply -auto-approve tfplan
         timeout-minutes: 15  # ✅ Fail if Terraform Apply takes too long
