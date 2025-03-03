@@ -1,6 +1,6 @@
 
 resource "azurerm_resource_group" "rg" {
-  name     = "myResourceGroupTA"
+  name     = "myResourceGroupTA1"
   location = "East US"
 }
 
@@ -75,7 +75,7 @@ resource "azurerm_private_dns_a_record" "dns_a_record" {
 }
 
 resource "azurerm_storage_account" "example" {
-  name                     = "krishnamdxstrgta"
+  name                     = "krishnamdxstrgta1"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
